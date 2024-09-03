@@ -1,41 +1,42 @@
 import Link from "next/link";
 
+type HeaderLinks = {
+  title: string;
+  ref: string;
+};
+
+const headerLinks: HeaderLinks[] = [
+  { title: "Home", ref: "#" },
+  { title: "Company", ref: "#" },
+  { title: "Features", ref: "#" },
+  { title: "Contact", ref: "#" },
+] as const;
+
 const Header = () => {
+  const getTakaraLogo = () => (
+    <Link href="#" className="flex items-center">
+      <svg
+        className="h-6 sm:h-9"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        fill="none"
+      >
+        <g id="T">
+          <rect x="40" y="40" width="15" height="45" rx="10" fill="#8A45FF" />
+          <rect x="20" y="22" width="55" height="15" rx="10" fill="#D56AFF" />
+        </g>
+      </svg>
+      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        akara
+      </span>
+    </Link>
+  );
+
   return (
     <header className="fixed w-full">
       <nav className="border-gray-100 bg-white py-2.5">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4">
-          <Link href="#" className="flex items-center">
-            <svg
-              className="h-6 sm:h-9"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 100 100"
-              fill="none"
-            >
-              <g id="T">
-                <rect
-                  x="40"
-                  y="40"
-                  width="15"
-                  height="45"
-                  rx="10"
-                  fill="#8A45FF"
-                />
-
-                <rect
-                  x="20"
-                  y="22"
-                  width="55"
-                  height="15"
-                  rx="10"
-                  fill="#D56AFF"
-                />
-              </g>
-            </svg>
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              akara
-            </span>
-          </Link>
+          {getTakaraLogo()}
           <div className="flex items-center lg:order-2">
             <Link
               href="#"
@@ -82,39 +83,17 @@ const Header = () => {
             id="mobile-menu-2"
           >
             <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
-              <li>
-                <Link
-                  href="#"
-                  className="block rounded bg-theme-700 py-2 pl-3 pr-4 text-white dark:text-white lg:bg-transparent lg:p-0 lg:text-theme-700"
-                  aria-current="page"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-theme-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
-                >
-                  Company
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-theme-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
-                >
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-theme-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
-                >
-                  Contact
-                </Link>
-              </li>
+              {headerLinks.map((link, i) => (
+                <li key={i}>
+                  <Link
+                    href={link.ref}
+                    className={`block rounded ${i == 0 ? "bg-theme-700 text-white lg:text-theme-700" : "border-b border-gray-100 text-gray-700 hover:bg-gray-50"} py-2 pl-3 pr-4 lg:bg-transparent lg:p-0`}
+                    aria-current="page"
+                  >
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
