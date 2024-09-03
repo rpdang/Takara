@@ -1,5 +1,5 @@
+import { ThemeModeScript } from "flowbite-react";
 import { Inter } from "next/font/google";
-import { type FC, type PropsWithChildren } from "react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,12 +10,17 @@ export const metadata = {
     "Centralize all your bank accounts, assets, and liabilities for a complete financial overview. Get personalized advice and learn as you go.",
 };
 
-const RootLayout: FC<PropsWithChildren> = function ({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>{children}</body>
+      <head>
+        <ThemeModeScript />
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
   );
-};
-
-export default RootLayout;
+}
